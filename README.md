@@ -29,3 +29,4 @@ docker-compose up
 
 */describe?id="ID"* - get info of instance with ID
 
+for testing on localhost: port 9999 (localhost:9999/start?id=1111111111)
