@@ -10,5 +10,5 @@ GraphQL server on Golang to manage AWS EC2 instances.
 go get -u github.com/golang/dep/cmd/dep
   
 # download and install docker-compose
-[Docker Compose](https://docs.docker.com/compose/install)
+https://docs.docker.com/compose/install
 ```
