@@ -13,12 +13,19 @@ go get -u github.com/golang/dep/cmd/dep
 https://docs.docker.com/compose/install
 
 # install dependencies
-dep init 
-```
+dep init
 
+# create ".env" file
+create ".env" file with the necessary environment variables (see example .env.sample)
+```
 ### Launch
 ```bash
 docker-compose up
 ```
 ### Examples 
+*/start?id="ID"* - start instance with ID
+
+*/stop?id="ID"* - stop instance with ID
+
+*/describe?id="ID"* - get info of instance with ID
 
