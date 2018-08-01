@@ -2,4 +2,4 @@
 /vendor
 Gopkg.lock
 Gopkg.toml
-export_vars.sh
+.env
