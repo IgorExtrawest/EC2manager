@@ -11,8 +11,8 @@ type server struct {
 }
 
 const (
-	startURL   = "/start"
-	stopURL    = "/stop"
+	startURL    = "/start"
+	stopURL     = "/stop"
 	describeURL = "/describe"
 )
 
