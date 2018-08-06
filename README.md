@@ -35,6 +35,12 @@ for testing on localhost: port 9999 (*localhost:9999/*** *)
 for testing on localhost: port 9999 (*localhost:9999/start?id=1111111111*)
 
 #### GraphQL
+for these queries we can pass the fields that interest us in {}:
+
+**'id'** for **start,stop** and **describe** operations
+
+ **'type','launchtime','state'** only for **describe** operation
+ 
 */graphql?query={instance(id:"ID",operation:"start"){id}}*
 
 */graphql?query={instance(id:"ID",operation:"stop"){id}}*
