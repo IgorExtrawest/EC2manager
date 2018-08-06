@@ -23,6 +23,9 @@ create ".env" file with the necessary environment variables (see example .env.sa
 docker-compose up
 ```
 ### Examples 
+for testing on localhost: port 9999 (*localhost:9999/*** *)
+
+#### REST
 */start?id="ID"* - start instance with ID
 
 */stop?id="ID"* - stop instance with ID
@@ -30,3 +33,10 @@ docker-compose up
 */describe?id="ID"* - get info of instance with ID
 
 for testing on localhost: port 9999 (*localhost:9999/start?id=1111111111*)
+
+#### GraphQL
+*/graphql?query={instance(id:"ID",operation:"start"){id}}*
+
+*/graphql?query={instance(id:"ID",operation:"stop"){id}}*
+
+*/graphql?query={instance(id:"ID",operation:"describe"){id,type,launchtime,state}}*
