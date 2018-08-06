@@ -12,7 +12,7 @@ type Ec2Manager interface {
 
 type GraphQLResult struct {
 	ID         string `json:"id"`
-	Type       string `json:"type"`
-	LaunchTime string `json:"launchtime"`
-	State      string `json:"state"`
+	Type       string `json:"type,omitempty"`
+	LaunchTime string `json:"launchtime,omitempty"`
+	State      string `json:"state,omitempty"`
 }

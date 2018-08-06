@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/ec2manager/src/models"
 	"github.com/gin-gonic/gin"
 	"github.com/graphql-go/graphql"
 	"net/http"
@@ -44,11 +44,29 @@ var (
 		Fields: graphql.Fields{
 			"instance": &graphql.Field{
 				Type: instanceType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"operation": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					if output, ok := p.Context.Value(contextParam).(*ec2.DescribeInstancesOutput); !ok {
+					id, ok := p.Args["id"].(string)
+					if !ok {
+						return nil, errors.New("ID not found")
+					}
+
+					operation, ok := p.Args["operation"].(string)
+					if !ok {
+						return nil, errors.New("operation not found")
+					}
+
+					if ec2manager, ok := p.Context.Value(contextParam).(models.Ec2Manager); !ok {
 						return nil, errors.New("can't cast to value")
 					} else {
-						return prepareGraphQLoutput(output), nil
+						return prepareGraphQLOutput(id, operation, ec2manager)
 					}
 				},
 			},
@@ -88,17 +106,10 @@ func (s *server) describeInstancesHandler(c *gin.Context) {
 }
 
 func (s *server) graphQLHandler(c *gin.Context) {
-	id := c.Query(ID)
-	output, err := s.Ec2Manager.DescribeInstances(id)
-	if err != nil {
-		renderResponse(c, http.StatusForbidden, errorMsg, err.Error())
-		return
-	}
-
 	result := graphql.Do(graphql.Params{
 		Schema:        schema,
 		RequestString: c.Query(Query),
-		Context:       context.WithValue(context.Background(), contextParam, output),
+		Context:       context.WithValue(context.Background(), contextParam, s.Ec2Manager),
 	})
 	c.JSON(http.StatusOK, result)
 }
